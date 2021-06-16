@@ -1,8 +1,8 @@
-import type { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import useSWR from "swr";
 import { parseBalance } from "../util";
 import useKeepSWRDataLiveAsBlocksArrive from "./useKeepSWRDataLiveAsBlocksArrive";
+import { Web3Provider } from "@ethersproject/providers";
 
 function getETHBalance(library: Web3Provider) {
   return async (_: string, address: string) => {

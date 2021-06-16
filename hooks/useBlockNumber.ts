@@ -1,6 +1,6 @@
-import type { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import useSWR from "swr";
+import { Web3Provider } from "@ethersproject/providers";
 
 function getBlockNumber(library: Web3Provider) {
   return async () => {

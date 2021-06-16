@@ -6,13 +6,19 @@ import Account from "../components/Account";
 import ETHBalance from "../components/ETHBalance";
 import useEagerConnect from "../hooks/useEagerConnect";
 import usePersonalSign from "../hooks/usePersonalSign";
+import useGet0xTokens from "../hooks/useGet0xTokens";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [tokens,setTokens] = useState([]);
+
   const { account, library } = useWeb3React();
 
   const triedToEagerConnect = useEagerConnect();
 
   const sign = usePersonalSign();
+
+  const {allTokens} = useGet0xTokens(tokens);
 
   const handleSign = async () => {
     const msg = "Next Web3 Boilerplate Rules";
@@ -25,6 +31,12 @@ export default function Home() {
   };
 
   const isConnected = typeof account === "string" && !!library;
+
+  useEffect(() => {
+    if(allTokens.length > 0){
+      setTokens(allTokens);
+    }
+  },[])
 
   return (
     <div>
@@ -57,6 +69,14 @@ export default function Home() {
             <button onClick={handleSign}>Personal Sign</button>
           </section>
         )}
+
+        {
+          tokens.map( token => {
+            return <p>
+              {token.symbol}
+            </p>
+          })
+        }
       </main>
 
       <style jsx>{`
